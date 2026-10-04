@@ -1,0 +1,50 @@
+===== ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+13: eth0@if14: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 02:42:ac:14:14:03 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 172.20.20.3/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:acff:fe14:1403/64 scope link 
+       valid_lft forever preferred_lft forever
+32: eth1@if31: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP group default 
+    link/ether aa:c1:ab:7d:b2:ee brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-05031180f95d8850
+    inet 10.10.10.101/24 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a8c1:abff:fe7d:b2ee/64 scope link 
+       valid_lft forever preferred_lft forever
+===== ip route
+default via 10.10.10.1 dev eth1 
+10.10.10.0/24 dev eth1 proto kernel scope link src 10.10.10.101 
+172.20.20.0/24 dev eth0 proto kernel scope link src 172.20.20.3 
+===== ping web1
+PING 10.10.20.101 (10.10.20.101) 56(84) bytes of data.
+64 bytes from 10.10.20.101: icmp_seq=1 ttl=62 time=0.259 ms
+64 bytes from 10.10.20.101: icmp_seq=2 ttl=62 time=0.098 ms
+64 bytes from 10.10.20.101: icmp_seq=3 ttl=62 time=0.127 ms
+64 bytes from 10.10.20.101: icmp_seq=4 ttl=62 time=0.047 ms
+
+--- 10.10.20.101 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3031ms
+rtt min/avg/max/mdev = 0.047/0.132/0.259/0.078 ms
+===== ping branch-client
+PING 10.10.30.101 (10.10.30.101) 56(84) bytes of data.
+64 bytes from 10.10.30.101: icmp_seq=1 ttl=61 time=0.239 ms
+64 bytes from 10.10.30.101: icmp_seq=2 ttl=61 time=0.052 ms
+64 bytes from 10.10.30.101: icmp_seq=3 ttl=61 time=0.048 ms
+64 bytes from 10.10.30.101: icmp_seq=4 ttl=61 time=0.047 ms
+
+--- 10.10.30.101 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3065ms
+rtt min/avg/max/mdev = 0.047/0.096/0.239/0.082 ms
+===== traceroute branch-client
+traceroute to 10.10.30.101 (10.10.30.101), 30 hops max, 60 byte packets
+ 1  10.10.10.1 (10.10.10.1)  0.628 ms  0.400 ms  0.380 ms
+ 2  10.255.12.2 (10.255.12.2)  0.368 ms  0.259 ms  0.236 ms
+ 3  10.255.23.2 (10.255.23.2)  0.220 ms  0.195 ms  0.178 ms
+ 4  10.10.30.101 (10.10.30.101)  0.162 ms  0.138 ms  0.118 ms

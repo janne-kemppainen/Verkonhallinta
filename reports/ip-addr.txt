@@ -1,0 +1,93 @@
+===== r1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if24        UP             172.20.20.8/24 fe80::42:acff:fe14:1408/64 
+eth2@if32        UP             10.10.10.1/24 fe80::a8c1:abff:fe1e:72b/64 
+eth3@if38        UP             10.10.10.254/24 fe80::a8c1:abff:fe61:fd7a/64 
+eth1@if39        UP             10.255.12.1/30 fe80::a8c1:abff:fe74:a4f/64 
+===== r2
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if22        UP             172.20.20.7/24 fe80::42:acff:fe14:1407/64 
+eth4@if34        UP             10.255.23.1/30 fe80::a8c1:abff:fe5e:9285/64 
+eth1@if40        UP             10.255.12.2/30 fe80::a8c1:abff:feaf:7688/64 
+eth2@if45        UP             10.10.20.1/24 fe80::a8c1:abff:fe06:7bc0/64 
+eth3@if49        UP             10.10.99.1/24 fe80::a8c1:abff:fe63:f7d9/64 
+===== r3
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if18        UP             172.20.20.5/24 fe80::42:acff:fe14:1405/64 
+eth1@if33        UP             10.255.23.2/30 fe80::a8c1:abff:fea5:b061/64 
+eth2@if35        UP             10.10.30.1/24 fe80::a8c1:abff:fe75:4156/64 
+===== client1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if14        UP             172.20.20.3/24 fe80::42:acff:fe14:1403/64 
+eth1@if31        UP             10.10.10.101/24 fe80::a8c1:abff:fe7d:b2ee/64 
+===== attacker
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if16        UP             172.20.20.4/24 fe80::42:acff:fe14:1404/64 
+eth1@if37        UP             10.10.10.200/24 fe80::a8c1:abff:fe24:860a/64 
+===== web1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if52        UP             172.20.20.12/24 fe80::42:acff:fe14:140c/64 
+eth1@if55        UP             10.10.20.101/24 fe80::a8c1:abff:fefc:60ba/64 
+===== db1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if62        UP             172.20.20.15/24 fe80::42:acff:fe14:140f/64 
+eth1@if63        UP             10.10.20.102/24 fe80::a8c1:abff:fe16:4fc2/64 
+===== branch-client
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if20        UP             172.20.20.6/24 fe80::42:acff:fe14:1406/64 
+eth1@if36        UP             10.10.30.101/24 fe80::a8c1:abff:fe54:d20e/64 
+===== ansible
+sh: 1: ip: not found
+===== prometheus
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+11: eth0@if12: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue 
+    link/ether 02:42:ac:14:14:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.20.2/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:acff:fe14:1402/64 scope link 
+       valid_lft forever preferred_lft forever
+28: eth1@if27: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue 
+    link/ether aa:c1:ab:58:47:8a brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::a8c1:abff:fe58:478a/64 scope link 
+       valid_lft forever preferred_lft forever
+===== grafana
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+29: eth0@if30: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:14:14:0a brd ff:ff:ff:ff:ff:ff
+    inet 172.20.20.10/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:acff:fe14:140a/64 scope link 
+       valid_lft forever preferred_lft forever
+44: eth1@if43: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP 
+    link/ether aa:c1:ab:10:f9:27 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::a8c1:abff:fe10:f927/64 scope link 
+       valid_lft forever preferred_lft forever
+===== zabbix
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+25: eth0@if26: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:14:14:09 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.20.9/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:acff:fe14:1409/64 scope link 
+       valid_lft forever preferred_lft forever
+42: eth1@if41: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP 
+    link/ether aa:c1:ab:ed:74:b7 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::a8c1:abff:feed:74b7/64 scope link 
+       valid_lft forever preferred_lft forever
+===== ansible (hostname -I)
+172.20.20.16 
