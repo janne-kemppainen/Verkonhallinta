@@ -136,7 +136,7 @@ client1:ltä on yhteys sekä palvelinverkkoon että sivukonttorin verkkoon. Reit
 
 ### Mikä vei eniten aikaa ja miksi?
 
-Eniten aikaa vei ympäristön käyttöönotto. Ubuntu ei asentunut WSL:ään ensimmäisellä yrityksellä, ja NetBoxin ensimmäinen käynnistys ylitti terveystarkistuksen aikarajan, koska tietokantamigraatiot kestivät pitkään. Varsinaisessa dokumentoinnissa aikaa vei hallintaverkon todellisen tilan selvittäminen. Kurssirepon dokumentaatio, NetBoxin data ja käynnissä olevan ympäristön tila eivät vastanneet toisiaan, joten osoitteet piti tarkistaa jokaisesta laitteesta erikseen.
+Eniten aikaa vei ympäristön käyttöönotto. Ubuntu ei asentunut ensimmäisellä yrityksellä WSL:ään ja NetBoxin ensimmäinen käynnistys ylitti aikarajan, koska tietokantamigraatiot kestivät pitkään. Varsinaisessa dokumentoinnissa aikaa vei hallintaverkon todellisen tilan selvittäminen. Kurssirepon dokumentaatio, NetBoxin data ja käynnissä olevan ympäristön tila eivät vastanneet toisiaan, joten osoitteet piti tarkistaa jokaisesta laitteesta erikseen.
 
 ### Miten dokumentaatio auttaa palvelusta vastaavaa IT-asiantuntijaa?
 
