@@ -162,6 +162,7 @@ topology:
         - ../configs:/configs
       exec:
         - bash /ansible/ansible-bootstrap.sh
+        - ip address replace 10.10.99.10/24 dev eth1
 
     prometheus:
       kind: linux
@@ -171,6 +172,8 @@ topology:
       binds:
         - ../configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
         - ../state/management/prometheus-data:/prometheus
+      exec:
+        - ip address replace 10.10.99.20/24 dev eth1
 
     cadvisor:
       kind: linux
@@ -181,6 +184,8 @@ topology:
         - /sys:/sys:ro
         - /var/lib/docker/:/var/lib/docker:ro
         - /dev/disk/:/dev/disk:ro
+      exec:
+        - ip address replace 10.10.99.21/24 dev eth1
 
     grafana:
       kind: linux
@@ -192,6 +197,8 @@ topology:
         - ../configs/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
         - ../configs/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
         - ../configs/grafana/dashboards:/var/lib/grafana/dashboards
+      exec:
+        - ip address replace 10.10.99.30/24 dev eth1
 
     zabbix:
       kind: linux
@@ -202,11 +209,15 @@ topology:
       binds:
         - ../state/management/zabbix-mysql:/var/lib/mysql
         - ../state/management/zabbix-data:/var/lib/zabbix
+      exec:
+        - ip address replace 10.10.99.40/24 dev eth1
 
     syslog:
       kind: linux
       image: rsyslog/syslog_appliance_alpine
       mgmt-ipv4: 172.20.20.50
+      exec:
+        - ip address replace 10.10.99.50/24 dev eth1
 
 
   ####################################################
