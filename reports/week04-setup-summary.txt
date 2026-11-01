@@ -1,0 +1,40 @@
+branch-client | SUCCESS => {
+            "address": "10.10.30.101",
+            "interface": "eth1",
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "24.04",
+        "ansible_memtotal_mb": 15951,
+        "ansible_processor_vcpus": 8
+db1 | SUCCESS => {
+            "address": "10.10.20.102",
+            "interface": "eth1",
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "24.04",
+        "ansible_memtotal_mb": 15951,
+        "ansible_processor_vcpus": 8
+client1 | SUCCESS => {
+            "address": "10.10.10.101",
+            "interface": "eth1",
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "24.04",
+        "ansible_memtotal_mb": 15951,
+        "ansible_processor_vcpus": 8
+web1 | SUCCESS => {
+            "address": "10.10.20.101",
+            "interface": "eth1",
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "24.04",
+        "ansible_memtotal_mb": 15951,
+        "ansible_processor_vcpus": 8
+attacker | SUCCESS => {
+            "address": "10.10.10.200",
+            "interface": "eth1",
+        "ansible_distribution": "Kali",
+        "ansible_distribution_version": "2026.3",
+        "ansible_memtotal_mb": 15951,
+        "ansible_processor_vcpus": 8
+prometheus | UNREACHABLE! => {
+grafana | UNREACHABLE! => {
+zabbix | UNREACHABLE! => {
+cadvisor | UNREACHABLE! => {
+ansible | UNREACHABLE! => {
