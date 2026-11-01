@@ -1,0 +1,27 @@
+## Oletuskonfiguraatio (snmpd.conf.orig)
+agentaddress  127.0.0.1,[::1]
+view   systemonly  included   .1.3.6.1.2.1.1
+view   systemonly  included   .1.3.6.1.2.1.25.1
+rocommunity  public default -V systemonly
+rocommunity6 public default -V systemonly
+rouser authPrivUser authpriv -V systemonly
+
+## Muutettu konfiguraatio (snmpd.conf)
+agentaddress udp:161
+view   systemonly  included   .1.3.6.1.2.1.1
+view   systemonly  included   .1.3.6.1.2.1.25.1
+rocommunity public
+rocommunity6 public default -V systemonly
+rouser authPrivUser authpriv -V systemonly
+
+## Palvelun tila
+ * snmpd is running
+
+## Prosessi
+839 /usr/sbin/snmpd -LSwd -Lf /dev/null -u Debian-snmp -g Debian-snmp -I -smux mteTrigger mteTriggerConf -p /run/snmpd.pid
+
+## Testi numeerisella OID:lla
+SNMPv2-MIB::sysName.0 = STRING: web1
+
+## Testi MIB-nimella
+SNMPv2-MIB::sysName.0 = STRING: web1

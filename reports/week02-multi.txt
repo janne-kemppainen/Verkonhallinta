@@ -1,0 +1,18 @@
+## web1
+SNMPv2-MIB::sysName.0 = STRING: web1
+SNMPv2-MIB::sysDescr.0 = STRING: Linux web1 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64
+DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (58940) 0:09:49.40
+HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (130954) 0:21:49.54
+
+## db1
+SNMPv2-MIB::sysName.0 = STRING: db1
+SNMPv2-MIB::sysDescr.0 = STRING: Linux db1 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64
+DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (3740) 0:00:37.40
+HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (130961) 0:21:49.61
+
+## branch-client
+SNMPv2-MIB::sysName.0 = STRING: branch-client
+SNMPv2-MIB::sysDescr.0 = STRING: Linux branch-client 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64
+DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (3211) 0:00:32.11
+HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (130968) 0:21:49.68
+
