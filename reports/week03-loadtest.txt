@@ -1,0 +1,18 @@
+## Levykuormitus alkaa: 14:08:48
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 0.34489 s, 1.5 GB/s
+## Levykuormitus loppui: 14:08:48
+## CPU-kuormitus alkaa: 14:09:47
+stress-ng: info:  [4320] setting to a 2 mins, 0 secs run per stressor
+stress-ng: info:  [4320] dispatching hogs: 4 cpu
+stress-ng: metrc: [4320] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+stress-ng: metrc: [4320]                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+stress-ng: metrc: [4320] cpu              903802    117.66    468.30      0.04      7681.30        1929.79
+stress-ng: info:  [4320] skipped: 0
+stress-ng: info:  [4320] passed: 4: cpu (4)
+stress-ng: info:  [4320] failed: 0
+stress-ng: info:  [4320] metrics untrustworthy: 0
+stress-ng: info:  [4320] successful run completed in 1 min, 57.67 secs
+## CPU-kuormitus loppui: 14:11:45
+## Testitiedosto poistettu: 14:22:27

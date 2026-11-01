@@ -1,0 +1,27 @@
+## Rivien maara
+1286
+
+## Eri mittarien maara
+293
+
+## Esimerkkeja
+# HELP node_cpu_seconds_total Seconds the CPUs spent in each mode.
+# TYPE node_cpu_seconds_total counter
+node_cpu_seconds_total{cpu="0",mode="idle"} 3222.8
+node_cpu_seconds_total{cpu="0",mode="iowait"} 34.62
+node_cpu_seconds_total{cpu="0",mode="irq"} 0
+node_cpu_seconds_total{cpu="0",mode="nice"} 0
+node_cpu_seconds_total{cpu="0",mode="softirq"} 119.06
+node_cpu_seconds_total{cpu="0",mode="steal"} 0
+node_cpu_seconds_total{cpu="0",mode="system"} 34.16
+node_cpu_seconds_total{cpu="0",mode="user"} 45.72
+# HELP node_filesystem_size_bytes Filesystem size in bytes.
+# TYPE node_filesystem_size_bytes gauge
+node_filesystem_size_bytes{device="/dev/sdd",device_error="",fstype="ext4",mountpoint="/configs"} 1.081101176832e+12
+node_filesystem_size_bytes{device="/dev/sdd",device_error="",fstype="ext4",mountpoint="/etc/hostname"} 1.081101176832e+12
+node_filesystem_size_bytes{device="/dev/sdd",device_error="",fstype="ext4",mountpoint="/etc/hosts"} 1.081101176832e+12
+node_filesystem_size_bytes{device="/dev/sdd",device_error="",fstype="ext4",mountpoint="/etc/resolv.conf"} 1.081101176832e+12
+node_filesystem_size_bytes{device="/dev/sdd",device_error="",fstype="ext4",mountpoint="/student-bootstrap"} 1.081101176832e+12
+# HELP node_memory_MemTotal_bytes Memory information field MemTotal_bytes.
+# TYPE node_memory_MemTotal_bytes gauge
+node_memory_MemTotal_bytes 1.672654848e+10
