@@ -1,0 +1,206 @@
+########## install-snmp.yml, ajo 1
+
+PLAY [Install and configure SNMP] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [branch-client]
+ok: [client1]
+ok: [db1]
+
+TASK [Update package cache] ****************************************************
+ok: [db1]
+ok: [branch-client]
+ok: [client1]
+ok: [web1]
+
+TASK [Install SNMP packages] ***************************************************
+ok: [web1]
+ok: [db1]
+ok: [branch-client]
+changed: [client1]
+
+TASK [Configure SNMP community] ************************************************
+changed: [client1]
+changed: [web1]
+changed: [branch-client]
+changed: [db1]
+
+TASK [Enable SNMP service] *****************************************************
+fatal: [client1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [branch-client]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [web1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [db1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+
+PLAY RECAP *********************************************************************
+branch-client              : ok=4    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+client1                    : ok=4    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+db1                        : ok=4    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+web1                       : ok=4    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+########## install-snmp.yml, ajo 2
+
+PLAY [Install and configure SNMP] **********************************************
+
+TASK [Update package cache] ****************************************************
+ok: [branch-client]
+ok: [client1]
+ok: [web1]
+ok: [db1]
+
+TASK [Install SNMP packages] ***************************************************
+ok: [web1]
+ok: [db1]
+ok: [branch-client]
+ok: [client1]
+
+TASK [Configure SNMP community] ************************************************
+ok: [branch-client]
+ok: [db1]
+ok: [web1]
+ok: [client1]
+
+TASK [Enable SNMP service] *****************************************************
+fatal: [web1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [client1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [db1]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+fatal: [branch-client]: FAILED! => {"changed": false, "msg": "Service is in unknown state", "status": {}}
+
+PLAY RECAP *********************************************************************
+branch-client              : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+client1                    : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+db1                        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+web1                       : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+########## install-node-exporter.yml, ajo 1
+
+PLAY [Install Prometheus Node Exporter] ****************************************
+
+TASK [Install prerequisite packages] *******************************************
+ok: [db1]
+ok: [branch-client]
+ok: [client1]
+ok: [web1]
+
+TASK [Create installation directory] *******************************************
+ok: [db1]
+changed: [branch-client]
+ok: [web1]
+ok: [client1]
+
+TASK [Download Node Exporter] **************************************************
+changed: [web1]
+changed: [branch-client]
+changed: [db1]
+changed: [client1]
+
+TASK [Extract archive] *********************************************************
+changed: [web1]
+changed: [branch-client]
+changed: [client1]
+changed: [db1]
+
+TASK [Install exporter binary] *************************************************
+changed: [branch-client]
+changed: [web1]
+changed: [client1]
+changed: [db1]
+
+TASK [Start node_exporter] *****************************************************
+changed: [branch-client]
+changed: [client1]
+changed: [db1]
+changed: [web1]
+
+TASK [Verify exporter responds] ************************************************
+ok: [client1]
+ok: [web1]
+ok: [db1]
+ok: [branch-client]
+
+TASK [Show verification result] ************************************************
+ok: [client1] => {
+    "msg": "Node Exporter running on client1"
+}
+ok: [web1] => {
+    "msg": "Node Exporter running on web1"
+}
+ok: [db1] => {
+    "msg": "Node Exporter running on db1"
+}
+ok: [branch-client] => {
+    "msg": "Node Exporter running on branch-client"
+}
+
+PLAY RECAP *********************************************************************
+branch-client              : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+client1                    : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+db1                        : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web1                       : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+########## install-node-exporter.yml, ajo 2
+
+PLAY [Install Prometheus Node Exporter] ****************************************
+
+TASK [Install prerequisite packages] *******************************************
+ok: [web1]
+ok: [db1]
+ok: [client1]
+ok: [branch-client]
+
+TASK [Create installation directory] *******************************************
+ok: [client1]
+ok: [web1]
+ok: [db1]
+ok: [branch-client]
+
+TASK [Download Node Exporter] **************************************************
+ok: [db1]
+ok: [client1]
+ok: [web1]
+ok: [branch-client]
+
+TASK [Extract archive] *********************************************************
+ok: [web1]
+ok: [branch-client]
+ok: [db1]
+ok: [client1]
+
+TASK [Install exporter binary] *************************************************
+ok: [web1]
+ok: [db1]
+ok: [client1]
+ok: [branch-client]
+
+TASK [Start node_exporter] *****************************************************
+changed: [db1]
+changed: [client1]
+changed: [branch-client]
+changed: [web1]
+
+TASK [Verify exporter responds] ************************************************
+ok: [web1]
+ok: [client1]
+ok: [db1]
+ok: [branch-client]
+
+TASK [Show verification result] ************************************************
+ok: [client1] => {
+    "msg": "Node Exporter running on client1"
+}
+ok: [web1] => {
+    "msg": "Node Exporter running on web1"
+}
+ok: [db1] => {
+    "msg": "Node Exporter running on db1"
+}
+ok: [branch-client] => {
+    "msg": "Node Exporter running on branch-client"
+}
+
+PLAY RECAP *********************************************************************
+branch-client              : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+client1                    : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+db1                        : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web1                       : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

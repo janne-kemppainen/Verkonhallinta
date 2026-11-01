@@ -1,0 +1,21 @@
+## web1 snmpd:
+ * snmpd is not running
+## web1 node_exporter:
+node_exporter, version 1.9.1 (branch: HEAD, revision: f2ec547b49af53815038a50265aa2adcd1275959)
+## db1 snmpd:
+ * snmpd is not running
+## db1 node_exporter:
+node_exporter, version 1.9.1 (branch: HEAD, revision: f2ec547b49af53815038a50265aa2adcd1275959)
+## client1 snmpd:
+ * snmpd is not running
+## client1 node_exporter:
+node_exporter, version 1.9.1 (branch: HEAD, revision: f2ec547b49af53815038a50265aa2adcd1275959)
+## branch-client snmpd:
+ * snmpd is not running
+## branch-client node_exporter:
+node_exporter, version 1.9.1 (branch: HEAD, revision: f2ec547b49af53815038a50265aa2adcd1275959)
+## Prometheus up:
+client1:9100 = 1
+db1:9100 = 1
+web1:9100 = 1
+branch-client:9100 = 1
