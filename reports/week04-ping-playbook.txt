@@ -1,0 +1,38 @@
+
+PLAY [Test Linux hosts] ********************************************************
+
+TASK [Ping via Ansible] ********************************************************
+ok: [attacker]
+ok: [client1]
+ok: [web1]
+fatal: [prometheus]: UNREACHABLE! => {"changed": false, "msg": "Data could not be sent to remote host \"clab-hamk-verkonhallinta-golden-prometheus\". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-prometheus port 22: Connection refused\r\n", "unreachable": true}
+ok: [db1]
+fatal: [grafana]: UNREACHABLE! => {"changed": false, "msg": "Data could not be sent to remote host \"clab-hamk-verkonhallinta-golden-grafana\". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-grafana port 22: Connection refused\r\n", "unreachable": true}
+fatal: [zabbix]: UNREACHABLE! => {"changed": false, "msg": "Data could not be sent to remote host \"clab-hamk-verkonhallinta-golden-zabbix\". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-zabbix port 22: Connection refused\r\n", "unreachable": true}
+ok: [branch-client]
+fatal: [cadvisor]: UNREACHABLE! => {"changed": false, "msg": "Data could not be sent to remote host \"clab-hamk-verkonhallinta-golden-cadvisor\". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-cadvisor port 22: Connection refused\r\n", "unreachable": true}
+fatal: [ansible]: UNREACHABLE! => {"changed": false, "msg": "Invalid/incorrect password: Warning: Permanently added 'clab-hamk-verkonhallinta-golden-ansible' (ED25519) to the list of known hosts.\r\nPermission denied, please try again.", "unreachable": true}
+
+PLAY [Test routers] ************************************************************
+
+TASK [Run show version] ********************************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+fatal: [r1]: FAILED! => {"changed": false, "msg": "paramiko is not installed: No module named 'paramiko'"}
+fatal: [r2]: FAILED! => {"changed": false, "msg": "paramiko is not installed: No module named 'paramiko'"}
+fatal: [r3]: FAILED! => {"changed": false, "msg": "paramiko is not installed: No module named 'paramiko'"}
+
+PLAY RECAP *********************************************************************
+ansible                    : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+attacker                   : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+branch-client              : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+cadvisor                   : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+client1                    : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+db1                        : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+grafana                    : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+prometheus                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+r1                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+r2                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+r3                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+web1                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+zabbix                     : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+

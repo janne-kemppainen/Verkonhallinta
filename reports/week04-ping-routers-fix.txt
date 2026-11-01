@@ -1,0 +1,17 @@
+
+PLAY [Test Linux hosts] ********************************************************
+skipping: no hosts matched
+
+PLAY [Test routers] ************************************************************
+
+TASK [Run show version] ********************************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+fatal: [r2]: FAILED! => {"changed": false, "msg": "[Errno None] Unable to connect to port 22 on 172.20.20.4"}
+fatal: [r1]: FAILED! => {"changed": false, "msg": "[Errno None] Unable to connect to port 22 on 172.20.20.8"}
+fatal: [r3]: FAILED! => {"changed": false, "msg": "[Errno None] Unable to connect to port 22 on 172.20.20.13"}
+
+PLAY RECAP *********************************************************************
+r1                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+r2                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+r3                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
