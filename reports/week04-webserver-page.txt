@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sun, 01 Nov 2026 17:48:10 GMT
+Content-Type: text/html
+Content-Length: 203
+Last-Modified: Sun, 01 Nov 2026 17:47:18 GMT
+Connection: keep-alive
+ETag: "6ae77b26-cb"
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html>
+<head><title>web1</title></head>
+<body>
+<h1>web1</h1>
+<p>Hostname: web1</p>
+<p>Datatason IP: 10.10.20.101</p>
+<p>Rooli: webserver</p>
+<p>Hallinnoitu Ansiblella</p>
+</body>
+</html>

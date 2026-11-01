@@ -1,0 +1,34 @@
+
+PLAY [Install and configure nginx web server] **********************************
+
+TASK [Update package cache] ****************************************************
+ok: [web1]
+
+TASK [Install web server package] **********************************************
+ok: [web1]
+
+TASK [Hide nginx version in responses] *****************************************
+ok: [web1]
+
+TASK [Create index page] *******************************************************
+ok: [web1]
+
+TASK [Start and enable web server] *********************************************
+ok: [web1]
+
+TASK [Run pending handlers before verification] ********************************
+
+TASK [Verify web server responds locally] **************************************
+ok: [web1]
+
+TASK [Verify web server responds from control node] ****************************
+ok: [web1 -> localhost]
+
+TASK [Show result] *************************************************************
+ok: [web1] => {
+    "msg": "web1: HTTP 200, Server-header: nginx"
+}
+
+PLAY RECAP *********************************************************************
+web1                       : ok=8    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
