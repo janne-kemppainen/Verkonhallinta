@@ -1,0 +1,80 @@
+---
+- name: Install and configure nginx web server
+  hosts: web1
+  become: true
+
+  vars:
+    web_package: nginx
+    web_service: nginx
+    web_root: /var/www/html
+    web_port: 80
+
+  tasks:
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install web server package
+      ansible.builtin.apt:
+        name: "{{ web_package }}"
+        state: present
+
+    - name: Hide nginx version in responses
+      ansible.builtin.copy:
+        dest: /etc/nginx/conf.d/security.conf
+        content: |
+          server_tokens off;
+        mode: "0644"
+      notify: reload nginx
+
+    - name: Create index page
+      ansible.builtin.copy:
+        dest: "{{ web_root }}/index.html"
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head><title>{{ inventory_hostname }}</title></head>
+          <body>
+          <h1>{{ inventory_hostname }}</h1>
+          <p>Hostname: {{ ansible_hostname }}</p>
+          <p>Datatason IP: {{ data_ip }}</p>
+          <p>Rooli: {{ role }}</p>
+          <p>Hallinnoitu Ansiblella</p>
+          </body>
+          </html>
+        mode: "0644"
+
+    - name: Start and enable web server
+      ansible.builtin.sysvinit:
+        name: "{{ web_service }}"
+        state: started
+        enabled: true
+
+    - name: Run pending handlers before verification
+      ansible.builtin.meta: flush_handlers
+
+    - name: Verify web server responds locally
+      ansible.builtin.uri:
+        url: "http://localhost:{{ web_port }}/"
+        return_content: true
+      register: local_check
+      failed_when: inventory_hostname not in local_check.content
+
+    - name: Verify web server responds from control node
+      ansible.builtin.uri:
+        url: "http://{{ ansible_host }}:{{ web_port }}/"
+        return_content: true
+      delegate_to: localhost
+      register: remote_check
+      failed_when: inventory_hostname not in remote_check.content
+
+    - name: Show result
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}: HTTP {{ remote_check.status }}, Server-header: {{ remote_check.server | default('n/a') }}"
+
+  handlers:
+    - name: reload nginx
+      ansible.builtin.sysvinit:
+        name: "{{ web_service }}"
+        state: reloaded
