@@ -1,0 +1,65 @@
+## ansible-inventory --graph
+@all:
+  |--@ungrouped:
+  |--@user_network:
+  |  |--client1
+  |  |--attacker
+  |--@server_network:
+  |  |--web1
+  |  |--db1
+  |--@branch_office:
+  |  |--branch-client
+  |--@network_devices:
+  |  |--@routers:
+  |  |  |--r1
+  |  |  |--r2
+  |  |  |--r3
+  |--@linux_hosts:
+  |  |--@clients:
+  |  |  |--client1
+  |  |  |--attacker
+  |  |  |--branch-client
+  |  |--@servers:
+  |  |  |--web1
+  |  |  |--db1
+  |  |--@monitoring:
+  |  |  |--prometheus
+  |  |  |--grafana
+  |  |  |--zabbix
+  |  |  |--cadvisor
+  |  |--@management:
+  |  |  |--ansible
+  |--@ubuntu_hosts:
+  |  |--client1
+  |  |--web1
+  |  |--db1
+  |  |--branch-client
+  |--@node_exporter:
+  |  |--@routers:
+  |  |  |--r1
+  |  |  |--r2
+  |  |  |--r3
+  |  |--@clients:
+  |  |  |--client1
+  |  |  |--attacker
+  |  |  |--branch-client
+  |  |--@servers:
+  |  |  |--web1
+  |  |  |--db1
+
+## ansible all -m ping
+attacker | SUCCESS => {"changed": false,"ping": "pong"}
+client1 | SUCCESS => {"changed": false,"ping": "pong"}
+db1 | SUCCESS => {"changed": false,"ping": "pong"}
+branch-client | SUCCESS => {"changed": false,"ping": "pong"}
+web1 | SUCCESS => {"changed": false,"ping": "pong"}
+prometheus | UNREACHABLE!: Data could not be sent to remote host "clab-hamk-verkonhallinta-golden-prometheus". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-prometheus port 22: Connection refused
+grafana | UNREACHABLE!: Data could not be sent to remote host "clab-hamk-verkonhallinta-golden-grafana". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-grafana port 22: Connection refused
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+zabbix | UNREACHABLE!: Data could not be sent to remote host "clab-hamk-verkonhallinta-golden-zabbix". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-zabbix port 22: Connection refused
+cadvisor | UNREACHABLE!: Data could not be sent to remote host "clab-hamk-verkonhallinta-golden-cadvisor". Make sure this host can be reached over ssh: ssh: connect to host clab-hamk-verkonhallinta-golden-cadvisor port 22: Connection refused
+r2 | SUCCESS => {"changed": false,"ping": "pong"}
+r1 | SUCCESS => {"changed": false,"ping": "pong"}
+r3 | SUCCESS => {"changed": false,"ping": "pong"}
+ansible | UNREACHABLE!: Invalid/incorrect password: Warning: Permanently added 'clab-hamk-verkonhallinta-golden-ansible' (ED25519) to the list of known hosts.
+Permission denied, please try again.
