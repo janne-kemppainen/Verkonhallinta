@@ -220,7 +220,7 @@ Itse monitoroinnin tila: mitkä kohteet vastaavat ja miten keräys toimii.
 
 Kun vanha exporter pysäytettiin ja uusi käynnistettiin (noin klo 13:31–13:36), dashboardissa näkyi:
 
-- **Network Transmit, web1 eth0**: tasainen noin 768 B/s scrape-liikenne katkesi, ja Grafana yhdisti puuttuvan jakson reunapisteet viivalla (V-muoto). Vaihdon jälkeen web1:n taso jäi hieman db1:tä korkeammaksi, mikä selittyy suuremmalla mittarimäärällä (704 vs 688 näytettä).
+- **Network Transmit, web1 eth0**: tasainen noin 768 B/s scrape-liikenne katkesi ja Grafana yhdisti puuttuvan jakson reunapisteet viivalla (V-muoto). Vaihdon jälkeen web1:n taso jäi hieman db1:tä korkeammaksi, mikä selittyy suuremmalla mittarimäärällä (704 vs 688 näytettä).
 - **CPU Usage %**: web1:llä noin 88 %:n piikki samalla aikavälillä, mutta ei muilla. Todennäköisesti kyse on mittausartefaktista, joka syntyi, kun `rate()` laski muutosnopeutta katkenneesta counter-sarjasta. Todellista kuormaa ei ollut.
 
 Monitorointi siis näki oman katkoksensa, mikä on hyvä esimerkki siitä, että poikkeama voi johtua myös itse mittausjärjestelmästä.
@@ -249,7 +249,7 @@ Kellonajat: [week03-loadtest.txt](week03-loadtest.txt)
 
 ![Kuormitustesti](images/grafana-loadtest.png)
 
-**CPU.** Odotin noin 50 %:n käyttöastetta, koska kuormitettiin 4 ydintä 8:sta (`nproc` = 8). stress-ng vahvisti, että 4 ydintä oli täysin kuormitettuina (`usr time 468 s` 117 s:n ajossa, eli 4 × 117 s). Käyrä nousi kuitenkin vain noin **21 %:iin**. Syy on kyselyn `rate(...[5m])`: se laskee keskiarvon 5 minuutin ikkunassa, ja kuorma kesti vain 2 minuuttia. Suurin mahdollinen arvo on 50 % × 120 s / 300 s = 20 %, mikä vastaa havaintoa. Käyrän muoto selittyy samalla tavalla:
+**CPU.** Odotin noin 50 %:n käyttöastetta, koska kuormitettiin 4 ydintä 8:sta (`nproc` = 8). stress-ng vahvisti, että 4 ydintä oli täysin kuormitettuina (`usr time 468 s` 117 s:n ajossa, eli 4 × 117 s). Käyrä nousi kuitenkin vain noin **21 %:iin**. Syy on kyselyn `rate(...[5m])`: se laskee keskiarvon 5 minuutin ikkunassa ja kuorma kesti vain 2 minuuttia. Suurin mahdollinen arvo on 50 % × 120 s / 300 s = 20 %, mikä vastaa havaintoa. Käyrän muoto selittyy samalla tavalla:
 
 - nousu 14:09:47–14:11:45, kun kuorma tulee ikkunaan
 - tasanne noin 14:11:45–14:14:45, kun koko kuorma on ikkunan sisällä
@@ -263,7 +263,7 @@ Lyhyt kuormapiikki siis tasoittuu ja viivästyy dashboardissa. Lyhyempi ikkuna (
 
 **Muisti.** Hetkellinen piikki `dd`:n aikaan (kirjoitus välimuistiin).
 
-**Verkko.** Itse CPU-kuorma ei näkynyt verkossa. web1:n eth1:llä näkyi kuitenkin noin 165 KiB/s tasainen jakso, joka kesti **tasan 5 minuuttia** klo 14:08:40 alkaen. Suorakulmion muoto on `rate[5m]`:n tuottama kuva yhdestä lyhyestä purskeesta, ja ajoitus täsmää stress-ng:n asennukseen (noin 165 KiB/s × 300 s ≈ 48 MiB).
+**Verkko.** Itse CPU-kuorma ei näkynyt verkossa. web1:n eth1:llä näkyi kuitenkin noin 165 KiB/s tasainen jakso, joka kesti **tasan 5 minuuttia** klo 14:08:40 alkaen. Suorakulmion muoto on `rate[5m]`:n tuottama kuva yhdestä lyhyestä purskeesta ja ajoitus täsmää stress-ng:n asennukseen (noin 165 KiB/s × 300 s ≈ 48 MiB).
 
 ### Palautuminen
 
@@ -275,7 +275,7 @@ Lyhyt kuormapiikki siis tasoittuu ja viivästyy dashboardissa. Lyhyempi ikkuna (
 
 ### Johtopäätökset
 
-- Dashboard näyttää oireen, ei syytä. CPU-piikki klo 13:30 näytti kuormalta, mutta oli artefakti, ja verkkopiikit selittyivät vasta reititystaulun avulla. Mittareita pitää tarkastella yhdessä ja yhdistää järjestelmän tapahtumiin.
+- Dashboard näyttää oireen, ei syytä. CPU-piikki klo 13:30 näytti kuormalta, mutta oli artefakti ja verkkopiikit selittyivät vasta reititystaulun avulla. Mittareita pitää tarkastella yhdessä ja yhdistää järjestelmän tapahtumiin.
 - Kyselyn aikaikkuna vaikuttaa siihen, mitä dashboard näyttää. `rate[5m]` sopii trendien seurantaan, mutta lyhyet piikit madaltuvat.
 - Konttiympäristössä Node Exporter mittaa isäntää. Palvelinkohtaisiksi tarkoitetut paneelit näyttävät käytännössä saman arvon kaikille.
 - 8/13 kohdetta ei vastaa. Konfiguraatio ja todellisuus eivät vastaa toisiaan, mikä on samanlainen havainto kuin viikon 1 NetBox-ristiriita.
@@ -287,7 +287,7 @@ Lyhyt kuormapiikki siis tasoittuu ja viivästyy dashboardissa. Lyhyempi ikkuna (
 | Tiedonkeruu | Manageri kysyy agentilta yksittäisiä OID-arvoja (GET/GETNEXT) UDP:llä. Agentti voi myös lähettää trapeja. | Prometheus hakee koko `/metrics`-sivun HTTP:llä (pull) 15 s välein ja tallentaa aikasarjat. |
 | Käyttöönotto | Agentti on paketinhallinnassa, mutta oletuskonfiguraatio piti avata (`agentaddress`, `rocommunity`). Lisäksi MIB-tiedostot piti asentaa erikseen. | Yksi binääri, joka toimii heti ilman konfiguraatiota. Kohteet pitää lisätä Prometheuksen konfiguraatioon. |
 | Mittarien määrä | Standardi-MIBit (system, interfaces, host resources). Laajennukset vaativat valmistajan MIBejä. | Node Exporter: 293 mittaria ja noin 700 aikasarjaa per kohde. Lisäksi on exportereita lähes kaikille sovelluksille. |
-| Visualisointi | Ei omaa. Komentorivillä saa vain hetkellisiä arvoja, ja historia vaatii erillisen järjestelmän. | Historia on mukana (TSDB). PromQL-kyselyt ja Grafana-dashboardit. |
+| Visualisointi | Ei omaa. Komentorivillä saa vain hetkellisiä arvoja ja historia vaatii erillisen järjestelmän. | Historia on mukana (TSDB). PromQL-kyselyt ja Grafana-dashboardit. |
 | Hälytysmahdollisuudet | Trapit/informit agentilta. Kynnysarvojen valvonta vaatii erillisen managerin (esim. Zabbix). | PromQL-pohjaiset hälytyssäännöt ja Alertmanager. |
 | Soveltuvuus pilviympäristöihin | Heikko: staattiset kohteet ja UDP. Konteissa ei yleensä ole SNMP-agenttia. | Hyvä: service discovery, labelit ja konttien natiivi tuki. CNCF-projekti. |
 | Tietoturva | v2c: yhteisönimi selväkielisenä. v3 tarjoaa autentikoinnin ja salauksen. | Oletuksena salaamaton HTTP ilman autentikointia (`TLS is disabled`). TLS ja autentikointi voidaan konfiguroida. |
@@ -296,10 +296,35 @@ Lyhyt kuormapiikki siis tasoittuu ja viivästyy dashboardissa. Lyhyempi ikkuna (
 
 ## 8. Pohdinta
 
+### Vastaukset tehtävän 3.8 kysymyksiin
+
+**1. Mitä hyötyä Prometheuksesta on verrattuna SNMP:hen?**
+Prometheus tallentaa historian (TSDB), joten nykytilaa voi verrata aiempaan. SNMP-komentorivillä sain vain hetkellisiä arvoja. Node Exporter tuotti 293 mittaria ja PromQL:llä raakadatasta voi laskea käyttöasteita ja muutosnopeuksia. Pull-malli kertoo heti, jos kohde ei vastaa (`up = 0`) ja Grafana-visualisointi toimi suoraan. Vertailu tarkemmin osiossa 7.
+
+**2. Millaisia mittareita ylläpitäjän kannattaa seurata jatkuvasti?**
+- **Saatavuus** (`up`): jos kohde ei vastaa, muut mittarit ovat tyhjiä. Tässä ympäristössä 8/13 kohdetta oli DOWN.
+- **Levytila**: täyttyvä levy kaataa palvelut äkillisesti ja trendistä näkee, milloin tila loppuu.
+- **CPU ja kuormitus** (`node_load1`): pitkäkestoinen korkea kuorma kertoo kapasiteetin loppumisesta.
+- **Muisti**: muistin loppuessa käyttöjärjestelmä alkaa lopettaa prosesseja.
+- **Verkkoliikenne ja virheet**: poikkeama perustasosta voi kertoa viasta tai väärinkäytöstä.
+
+Yksittäistä arvoa tärkeämpää on seurata trendiä ja poikkeamaa normaalitasosta.
+
+**3. Mitä tietoa dashboardisi tarjoaa ylläpitäjälle?**
+Golden Topology Monitoring näyttää yhdellä silmäyksellä web1:n, db1:n, client1:n ja branch-clientin CPU-, muisti-, levy- ja verkkokäytön. Siitä näkee, mikä resurssi on pullonkaula ja milloin muutos alkoi. Kuormitustestissä dashboard näytti CPU-käyrän nousun, levytilan porrasaskeleen ja verkkopurskeen samalla aikajanalla. Monitoring Health -dashboard kertoo, mitkä kohteet ovat UP ja toimiiko keräys. Rajoitus: konttiympäristössä CPU ja muisti kuvaavat WSL2-isäntää, joten dashboard ei erottele, mikä kontti kuormaa aiheuttaa.
+
+**4. Mitä uusia mittareita lisäisit dashboardiin?**
+Ks. kohta "Mitä mittareita lisäisin?" alla.
+
+**5. Miten monitorointitiedosta voisi olla hyötyä vianetsinnässä?**
+Ks. kohta "Miten monitorointi auttaa vianetsinnässä?" alla.
+
+### Muut havainnot
+
 **Mitä opin tehtävän aikana?**
 - Prometheuksen keräysketjun ja sen, että vianrajaus etenee samassa järjestyksessä: `/metrics` → Targets → PromQL → tietolähde → paneeli.
 - Counterin ja gaugen eron käytännössä: CPU-käyrä viivästyi ja madaltui `rate()`:n takia, mutta levytilan muutos näkyi heti.
-- Labelit kannattaa tutkia ennen visualisointia. Levykysely palautti viisi identtistä sarjaa, ja dashboardin kysely piti rajata.
+- Labelit kannattaa tutkia ennen visualisointia. Levykysely palautti viisi identtistä sarjaa ja dashboardin kysely piti rajata.
 - Konttiympäristössä mittarit kuvaavat isäntää. Ilman tätä ymmärrystä dashboardista voisi tehdä vääriä johtopäätöksiä.
 
 **Prometheuksen vahvuudet**
@@ -326,4 +351,4 @@ Dynaamisiin palvelin-, kontti- ja pilviympäristöihin (esim. Kubernetes), joiss
 - exporterit myös reitittimille, jotta routers-ryhmä saataisiin UP-tilaan
 
 **Miten monitorointi auttaa vianetsinnässä?**
-Historiadatan avulla voi selvittää, milloin ongelma alkoi ja mitä muuta tapahtui samaan aikaan. Tässä tehtävässä esimerkiksi exporterin vaihto näkyi kolmessa eri paneelissa samaan aikaan, ja verkkopiikit voitiin yhdistää pakettiasennuksiin. Ilman monitorointia nämä tapahtumat olisivat jääneet näkymättömiin.
+Historiadatan avulla voi selvittää, milloin ongelma alkoi ja mitä muuta tapahtui samaan aikaan. Tässä tehtävässä esimerkiksi exporterin vaihto näkyi kolmessa eri paneelissa samaan aikaan ja verkkopiikit voitiin yhdistää pakettiasennuksiin. Ilman monitorointia nämä tapahtumat olisivat jääneet näkymättömiin.
