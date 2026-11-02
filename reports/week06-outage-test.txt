@@ -1,0 +1,6 @@
+## snmpd pysäytetty: 22:38:55
+## snmpd käynnistetty: 22:50:05
+## Saatavuus punainen (Hostien tila Not available): ennen 22:44
+## Ongelma "No SNMP data collection" (Warning): 22:45:22
+## Ongelma RESOLVED: 22:51:22
+## Uusi ongelma "db1 has been restarted (uptime < 10m)" (Warning): 22:51:33 (väärä hälytys, snmpd:n uptime nollautui)

@@ -1,0 +1,12 @@
+## CPU-kuorma alkaa: 22:29:53
+stress-ng: info:  [241] setting to a 5 mins, 0 secs run per stressor
+stress-ng: info:  [241] dispatching hogs: 8 cpu
+stress-ng: metrc: [241] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+stress-ng: metrc: [241]                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+stress-ng: metrc: [241] cpu             4062099    318.24   2346.60      7.86     12764.17        1725.28
+stress-ng: info:  [241] skipped: 0
+stress-ng: info:  [241] passed: 8: cpu (8)
+stress-ng: info:  [241] failed: 0
+stress-ng: info:  [241] metrics untrustworthy: 0
+stress-ng: info:  [241] successful run completed in 5 mins, 18.25 secs
+## CPU-kuorma loppui: 22:35:11
