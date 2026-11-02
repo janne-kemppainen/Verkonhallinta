@@ -172,17 +172,28 @@ Labran kokemus: Prometheus ja Grafana (viikko 3) näyttivät hyvältä ja olivat
 
 ### Pohdinta (6.11)
 
-**Mitä hyötyä keskitetystä valvonnasta on?** Yksi näkymä koko ympäristöön, joten vikaa ei tarvitse etsiä kirjautumalla jokaiselle koneelle. Historia mahdollistaa trendit, kapasiteettisuunnittelun ja SLA-raportoinnin. Ongelmat havaitaan ennen kuin käyttäjä soittaa. Templateilla valvonta on yhtenäistä kaikille hosteille.
+**Mitä hyötyä keskitetystä valvonnasta on?**
 
-**Mitkä mittarit ovat mielestäsi tärkeimpiä?** Saatavuus (ping ja agentin saatavuus), koska muut mittarit ovat merkityksettömiä, jos kone ei vastaa. Sen jälkeen levytila, koska täysi levy kaataa palvelut äkillisesti. Seuraavina CPU ja muisti pitkän aikavälin keskiarvoina sekä verkkoliikenne perustason poikkeamien havaitsemiseen. Tärkeintä olisi kuitenkin palvelutason tarkistus, esimerkiksi web1:n HTTP-vastaus, koska se kertoo, toimiiko palvelu käyttäjälle.
+Yksi näkymä koko ympäristöön, joten vikaa ei tarvitse etsiä kirjautumalla jokaiselle koneelle. Historia mahdollistaa trendit, kapasiteettisuunnittelun ja SLA-raportoinnin. Ongelmat havaitaan ennen kuin käyttäjä soittaa. Templateilla valvonta on yhtenäistä kaikille hosteille.
 
-**Millaisista tilanteista ylläpitäjän pitäisi saada hälytys?** Heti: host tai palvelu ei vastaa, levy täyttymässä, tietokanta alhaalla tai epäilyttävä tietoturvatapahtuma. Hälytyksen pitää vaatia toimenpidettä. Pitkäkestoinen korkea CPU-kuorma tai muistinkäyttö kannattaa näyttää Warning-tasolla. Testeistä opin, että pelkkä raja-arvo ei riitä. Väärä restart-hälytys ja kuukauden kuittaamaton Zabbix server -ongelma ovat esimerkkejä kohinasta, joka heikentää luottamusta hälytyksiin.
+**Mitkä mittarit ovat mielestäsi tärkeimpiä?**
 
-**Missä tilanteissa käyttäisit Prometheusta?** Kontti- ja Kubernetes-ympäristöissä, joissa kohteet syntyvät ja häviävät jatkuvasti ja service discovery on tärkeää. Myös sovellusmittareiden keruussa ja silloin, kun konfiguraatio halutaan versionhallintaan ja automaatioon (Ansible, GitOps).
+Saatavuus (ping ja agentin saatavuus), koska muut mittarit ovat merkityksettömiä, jos kone ei vastaa. Sen jälkeen levytila, koska täysi levy kaataa palvelut äkillisesti. Seuraavina CPU ja muisti pitkän aikavälin keskiarvoina sekä verkkoliikenne perustason poikkeamien havaitsemiseen. Tärkeintä olisi kuitenkin palvelutason tarkistus, esimerkiksi web1:n HTTP-vastaus, koska se kertoo, toimiiko palvelu käyttäjälle.
 
-**Missä tilanteissa käyttäisit Zabbixia?** Perinteisessä yritysverkossa, jossa on palvelimia ja verkkolaitteita (SNMP) ja tarvitaan valmiit templatet, hälytysten elinkaari, kuittaukset ja raportit yhdessä järjestelmässä. Sopii myös ylläpitotiimille, joka käyttää mieluummin käyttöliittymää kuin konfiguraatiotiedostoja.
+**Millaisista tilanteista ylläpitäjän pitäisi saada hälytys?**
+
+Heti: host tai palvelu ei vastaa, levy täyttymässä, tietokanta alhaalla tai epäilyttävä tietoturvatapahtuma. Hälytyksen pitää vaatia toimenpidettä. Pitkäkestoinen korkea CPU-kuorma tai muistinkäyttö kannattaa näyttää Warning-tasolla. Testeistä opin, että pelkkä raja-arvo ei riitä. Väärä restart-hälytys ja kuukauden kuittaamaton Zabbix server -ongelma ovat esimerkkejä kohinasta, joka heikentää luottamusta hälytyksiin.
+
+**Missä tilanteissa käyttäisit Prometheusta?**
+
+Kontti- ja Kubernetes-ympäristöissä, joissa kohteet syntyvät ja häviävät jatkuvasti ja service discovery on tärkeää. Myös sovellusmittareiden keruussa ja silloin, kun konfiguraatio halutaan versionhallintaan ja automaatioon (Ansible, GitOps).
+
+**Missä tilanteissa käyttäisit Zabbixia?**
+
+Perinteisessä yritysverkossa, jossa on palvelimia ja verkkolaitteita (SNMP) ja tarvitaan valmiit templatet, hälytysten elinkaari, kuittaukset ja raportit yhdessä järjestelmässä. Sopii myös ylläpitotiimille, joka käyttää mieluummin käyttöliittymää kuin konfiguraatiotiedostoja.
 
 **Mitä valvontatoimintoja lisäisit tähän ympäristöön?**
+
 - HTTP-tarkistus web1:lle (Web scenario) ja MySQL-tarkistus db1:lle, jotta valvottaisiin palvelua eikä vain hostia.
 - Reitittimien valvonta SNMP:llä (liitännät, BGP/OSPF-naapuruudet).
 - Actionit ja ilmoitukset (sähköposti tai Teams), koska nyt ongelmat näkyvät vain käyttöliittymässä.

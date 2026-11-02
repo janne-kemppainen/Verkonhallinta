@@ -158,18 +158,23 @@ Havainnot rakenteesta:
 ## 6. Pohdinta
 
 **Mitä hyötyä SNMP:stä on verkonhallinnassa?**
+
 SNMP on lähes kaikkien verkkolaitteiden tukema standardi, joten samalla managerilla voi valvoa eri valmistajien reitittimiä, kytkimiä ja palvelimia. Tiedot saadaan keskitetysti ja automaattisesti ilman kirjautumista jokaiseen laitteeseen.
 
 **Mitä tietoa SNMP:n avulla voidaan kerätä?**
+
 Esimerkiksi laitteen nimi, kuvaus ja käyttöaika, rajapintojen tilat ja liikennelaskurit, sekä HOST-RESOURCES-MIBin kautta prosessorin, muistin ja levyjen käyttö. Agentti voi myös itse lähettää ilmoituksia (trap/inform).
 
 **Mitä ongelmia yhteisöpohjaisessa SNMPv2:ssa on?**
+
 Yhteisönimi kulkee verkossa selväkielisenä, eikä liikennettä salata. Yhteisönimi toimii ainoana "salasanana", ja oletusarvo `public` on helppo arvata. Kun tässä tehtävässä poistettiin `-V systemonly` -rajaus, kuka tahansa yhteisönimen tietävä pystyy lukemaan koko MIB-puun. Käyttäjäkohtaista tunnistusta ei ole.
 
 **Missä tilanteissa käyttäisit mieluummin SNMPv3:a?**
+
 Tuotantoympäristössä, varsinkin jos hallintaliikenne kulkee jaetun tai epäluotettavan verkon yli, ja aina kun SNMP:llä on kirjoitusoikeus. SNMPv3 tarjoaa käyttäjäkohtaisen tunnistuksen ja salauksen (authPriv).
 
 **Omat havainnot**
+
 - Kontit jakavat isäntäkoneen ytimen, mikä näkyy suoraan SNMP-tiedoissa (`sysDescr`, `hrSystemUptime`). Kontin "käyttöjärjestelmä" ja "uptime" eivät ole samoja kuin fyysisellä palvelimella.
 - `sysUpTime` mittaa agentin eikä laitteen käyttöaikaa, joten pelkän sen perusteella ei voi päätellä laitteen uudelleenkäynnistyksiä.
 - Ubuntun oletuskonfiguraatio on tarkoituksella rajoittava (vain localhost, vain system-näkymä). Se on turvallinen lähtökohta, mutta se pitää avata hallitusti.

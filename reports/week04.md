@@ -3,6 +3,7 @@
 ## 1. Johdanto
 
 **Mikä on Infrastructure as Code?**
+
 Infrastructure as Code (IaC) tarkoittaa, että palvelinten ja verkkolaitteiden haluttu tila kuvataan tiedostoina (koodina) sen sijaan, että asetukset tehtäisiin käsin komentoriviltä. Kuvaus tallennetaan versionhallintaan ja automaatiotyökalu toteuttaa sen kohdelaitteille.
 
 IaC:n keskeiset hyödyt:

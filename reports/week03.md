@@ -3,12 +3,15 @@
 ## 1. Johdanto
 
 **Mitä monitorointi tarkoittaa?**
+
 Monitorointi on järjestelmien tilan jatkuvaa ja automaattista seurantaa. Palvelimilta ja palveluilta kerätään mittareita (esim. CPU, muisti, levy, verkko) säännöllisin väliajoin. Tavoitteena ei ole kerätä kaikkea mahdollista dataa, vaan havaita poikkeamat ja muutokset ajoissa.
 
 **Miksi monitorointi on tärkeää?**
+
 Pelkkä tieto siitä, että palvelu on käynnissä, ei riitä. Ylläpitäjän pitää tietää, miten hyvin palvelu toimii ja onko kuormitus muuttumassa ongelmaksi. Ilman monitorointia ongelma huomataan usein vasta käyttäjän valituksesta. Historiadatan avulla nykytilaa voidaan verrata normaalitasoon ja häiriön syytä voidaan selvittää jälkikäteen.
 
 **Mikä on Prometheus?**
+
 Prometheus on avoimen lähdekoodin monitorointijärjestelmä, joka kerää mittareita ja tallentaa ne aikasarjatietokantaan. Se toimii pull-mallilla: Prometheus hakee (scrape) mittarit säännöllisesti kohteiden HTTP-rajapinnasta `/metrics`. Kohteissa toimivat exporterit, jotka muuttavat järjestelmän tilatiedot Prometheuksen ymmärtämään muotoon. Tallennettua dataa kysellään PromQL-kielellä ja Grafana visualisoi kyselyjen tulokset.
 
 Tietovirta tässä ympäristössä:
@@ -20,6 +23,7 @@ Linux (web1, db1, client1) -> Node Exporter :9100 /metrics -> Prometheus (scrape
 ## 2. Ympäristön rakentaminen
 
 **Mitkä palvelut ovat käytössä?**
+
 Kurssin Containerlab-topologia sisältää valmiiksi Prometheuksen (`localhost:9090`), Grafanan (`localhost:3000`) ja cAdvisorin. Itse asensin web1-palvelimelle Node Exporterin uusimman version.
 
 **Miten ympäristö käynnistettiin?**
@@ -88,6 +92,7 @@ Prometheus-tietolähde oli valmiiksi määritelty konfiguraatiotiedostolla (`con
 ## 3. Mittareiden kerääminen
 
 **Mitä kohteita valvotaan?**
+
 Prometheuksen konfiguraatiossa (`configs/prometheus/prometheus.yml`, `scrape_interval: 15s`) on 13 kohdetta seitsemässä ryhmässä (job). Niistä 5 on tilassa UP:
 
 | Job | Kohteet | Tila |
@@ -106,9 +111,11 @@ Prometheuksen konfiguraatiossa (`configs/prometheus/prometheus.yml`, `scrape_int
 Kaikkien DOWN-kohteiden virheilmoitus oli `connection refused`. Prometheus siis tavoitti kohteen IP-osoitteen, mutta portissa ei vastannut mikään. Kyse ei ole verkkoviasta (silloin virhe olisi esim. `no route to host` tai timeout), vaan siitä, että exporteria ei ole asennettu tai käynnistetty näihin kohteisiin, vaikka ne on määritelty konfiguraatiossa.
 
 **Mitä exportereita käytettiin?**
+
 Node Exporter (portti 9100) Linux-palvelimilla. Lisäksi Prometheus kerää omia mittareitaan ja cAdvisor tuottaa konttikohtaisia mittareita.
 
 **Mitä mittareita kerätään?**
+
 web1:n Node Exporter tuottaa 293 eri mittaria ja 1286 riviä ([week03-web1-metrics.txt](week03-web1-metrics.txt)). Rivejä on enemmän kuin mittareita, koska labelit monistavat yhden mittarin moneksi aikasarjaksi. Esimerkiksi `node_cpu_seconds_total` on oma aikasarjansa jokaiselle CPU-ytimen ja moden (idle, user, system...) yhdistelmälle.
 
 Mittareilla on eri tyyppi:
@@ -198,7 +205,9 @@ Legendaksi asetettiin `{{instance}}` tai `{{instance}} {{device}}`, jotta viivat
 
 ![Golden Topology Monitoring](images/grafana-dashboard.png)
 
-**Miksi nämä mittarit ovat hyödyllisiä?** Ne kattavat palvelimen "elintoiminnot": laskentakapasiteetin (CPU), muistin, tallennustilan ja verkon. Yhdessä tarkasteltuina niistä voi päätellä, mikä resurssi on pullonkaula, ja erottaa esim. CPU-kuorman verkkoliikenteen kasvusta.
+**Miksi nämä mittarit ovat hyödyllisiä?**
+
+Ne kattavat palvelimen "elintoiminnot": laskentakapasiteetin (CPU), muistin, tallennustilan ja verkon. Yhdessä tarkasteltuina niistä voi päätellä, mikä resurssi on pullonkaula, ja erottaa esim. CPU-kuorman verkkoliikenteen kasvusta.
 
 ### Dashboard 2: Monitoring Health
 
@@ -212,7 +221,9 @@ Itse monitoroinnin tila: mitkä kohteet vastaavat ja miten keräys toimii.
 
 ![Monitoring Health](images/grafana-monitoring-health.png)
 
-**Miksi nämä mittarit ovat hyödyllisiä?** Jos kohde putoaa monitoroinnista, kaikki sen muut paneelit muuttuvat tyhjiksi, mikä voi jäädä huomaamatta. Target Status näyttää yhdellä silmäyksellä, mitkä kohteet eivät vastaa ja milloin tila muuttui. Samples per Scrape paljastaa muutokset exportereissa, esim. version vaihdon tai collectorin katoamisen.
+**Miksi nämä mittarit ovat hyödyllisiä?**
+
+Jos kohde putoaa monitoroinnista, kaikki sen muut paneelit muuttuvat tyhjiksi, mikä voi jäädä huomaamatta. Target Status näyttää yhdellä silmäyksellä, mitkä kohteet eivät vastaa ja milloin tila muuttui. Samples per Scrape paljastaa muutokset exportereissa, esim. version vaihdon tai collectorin katoamisen.
 
 ## 6. Havaintoja monitoroinnista
 
@@ -299,9 +310,11 @@ Lyhyt kuormapiikki siis tasoittuu ja viivästyy dashboardissa. Lyhyempi ikkuna (
 ### Vastaukset tehtävän 3.8 kysymyksiin
 
 **1. Mitä hyötyä Prometheuksesta on verrattuna SNMP:hen?**
+
 Prometheus tallentaa historian (TSDB), joten nykytilaa voi verrata aiempaan. SNMP-komentorivillä sain vain hetkellisiä arvoja. Node Exporter tuotti 293 mittaria ja PromQL:llä raakadatasta voi laskea käyttöasteita ja muutosnopeuksia. Pull-malli kertoo heti, jos kohde ei vastaa (`up = 0`) ja Grafana-visualisointi toimi suoraan. Vertailu tarkemmin osiossa 7.
 
 **2. Millaisia mittareita ylläpitäjän kannattaa seurata jatkuvasti?**
+
 - **Saatavuus** (`up`): jos kohde ei vastaa, muut mittarit ovat tyhjiä. Tässä ympäristössä 8/13 kohdetta oli DOWN.
 - **Levytila**: täyttyvä levy kaataa palvelut äkillisesti ja trendistä näkee, milloin tila loppuu.
 - **CPU ja kuormitus** (`node_load1`): pitkäkestoinen korkea kuorma kertoo kapasiteetin loppumisesta.
@@ -311,32 +324,39 @@ Prometheus tallentaa historian (TSDB), joten nykytilaa voi verrata aiempaan. SNM
 Yksittäistä arvoa tärkeämpää on seurata trendiä ja poikkeamaa normaalitasosta.
 
 **3. Mitä tietoa dashboardisi tarjoaa ylläpitäjälle?**
+
 Golden Topology Monitoring näyttää yhdellä silmäyksellä web1:n, db1:n, client1:n ja branch-clientin CPU-, muisti-, levy- ja verkkokäytön. Siitä näkee, mikä resurssi on pullonkaula ja milloin muutos alkoi. Kuormitustestissä dashboard näytti CPU-käyrän nousun, levytilan porrasaskeleen ja verkkopurskeen samalla aikajanalla. Monitoring Health -dashboard kertoo, mitkä kohteet ovat UP ja toimiiko keräys. Rajoitus: konttiympäristössä CPU ja muisti kuvaavat WSL2-isäntää, joten dashboard ei erottele, mikä kontti kuormaa aiheuttaa.
 
 **4. Mitä uusia mittareita lisäisit dashboardiin?**
+
 Ks. kohta "Mitä mittareita lisäisin?" alla.
 
 **5. Miten monitorointitiedosta voisi olla hyötyä vianetsinnässä?**
+
 Ks. kohta "Miten monitorointi auttaa vianetsinnässä?" alla.
 
 ### Muut havainnot
 
 **Mitä opin tehtävän aikana?**
+
 - Prometheuksen keräysketjun ja sen, että vianrajaus etenee samassa järjestyksessä: `/metrics` → Targets → PromQL → tietolähde → paneeli.
 - Counterin ja gaugen eron käytännössä: CPU-käyrä viivästyi ja madaltui `rate()`:n takia, mutta levytilan muutos näkyi heti.
 - Labelit kannattaa tutkia ennen visualisointia. Levykysely palautti viisi identtistä sarjaa ja dashboardin kysely piti rajata.
 - Konttiympäristössä mittarit kuvaavat isäntää. Ilman tätä ymmärrystä dashboardista voisi tehdä vääriä johtopäätöksiä.
 
 **Prometheuksen vahvuudet**
+
 - Pull-malli: Prometheus tietää heti, jos kohde ei vastaa (`up = 0`).
 - Monipuolinen ja tehokas kyselykieli (PromQL), jolla raakadatasta saa laskettua käyttöasteita ja muutosnopeuksia.
 - Labelit mahdollistavat saman datan tarkastelun eri ulottuvuuksista (kohde, ydin, rajapinta).
 - Laaja exporter-ekosysteemi ja helppo käyttöönotto.
 
 **Millaisiin ympäristöihin Prometheus soveltuu?**
+
 Dynaamisiin palvelin-, kontti- ja pilviympäristöihin (esim. Kubernetes), joissa kohteita tulee ja menee ja joissa tarvitaan paljon mittareita. Se sopii myös mikropalveluihin, joissa sovellukset voivat julkaista omat mittarinsa.
 
 **Haasteet ja rajoitukset**
+
 - Tietoturva: oletuksena salaamaton HTTP ja exporter rootina, kuten tässä ympäristössä.
 - Pull-malli vaatii, että Prometheus tavoittaa kohteet verkossa. Palomuurien ja NAT:n takana olevat kohteet ovat hankalia.
 - Prometheus ei ole tarkoitettu pitkäaikaiseen säilytykseen tai lokeihin. Pitkä historia ja lokit vaativat lisäjärjestelmiä.
@@ -344,6 +364,7 @@ Dynaamisiin palvelin-, kontti- ja pilviympäristöihin (esim. Kubernetes), joiss
 - Aikasarjojen määrä kasvaa nopeasti labelien myötä (kardinaliteetti), mikä vaikuttaa tallennustilaan ja suorituskykyyn.
 
 **Mitä mittareita lisäisin?**
+
 - `node_load1`/`node_load5` (järjestelmän kuormitusjono, joka reagoi nopeammin kuin CPU % `rate[5m]`:llä)
 - verkon virheet ja pudotukset (`node_network_receive_errs_total`, `node_network_receive_drop_total`)
 - cAdvisorin konttikohtaiset CPU- ja muistimittarit, jotta kuorman lähteen voi erottaa
@@ -351,4 +372,5 @@ Dynaamisiin palvelin-, kontti- ja pilviympäristöihin (esim. Kubernetes), joiss
 - exporterit myös reitittimille, jotta routers-ryhmä saataisiin UP-tilaan
 
 **Miten monitorointi auttaa vianetsinnässä?**
+
 Historiadatan avulla voi selvittää, milloin ongelma alkoi ja mitä muuta tapahtui samaan aikaan. Tässä tehtävässä esimerkiksi exporterin vaihto näkyi kolmessa eri paneelissa samaan aikaan ja verkkopiikit voitiin yhdistää pakettiasennuksiin. Ilman monitorointia nämä tapahtumat olisivat jääneet näkymättömiin.
