@@ -1,0 +1,36 @@
+## web1
+CPU utilization                     11.7902 %
+Load average (1m avg)               0.3700 
+Memory utilization                  20.0992 %
+Uptime                              2915 uptime
+/: Space utilization                1.2124 %
+Interface eth0(): Bits received     776 bps
+Interface eth0(): Bits sent         6680 bps
+Interface eth1(): Bits received     56 bps
+Interface eth1(): Bits sent         0 bps
+ICMP response time                  0.0001 s
+
+## db1
+CPU utilization                     11.7985 %
+Load average (1m avg)               0.4200 
+Memory utilization                  20.0953 %
+Uptime                              2916 uptime
+/: Space utilization                1.2124 %
+Interface eth0(): Bits received     736 bps
+Interface eth0(): Bits sent         6648 bps
+Interface eth1(): Bits received     56 bps
+Interface eth1(): Bits sent         0 bps
+ICMP response time                  0.0001 s
+
+## branch-client
+CPU utilization                     11.7910 %
+Load average (1m avg)               0.4200 
+Memory utilization                  20.0993 %
+Uptime                              2916 uptime
+/: Space utilization                1.2124 %
+Interface eth0(): Bits received     280 bps
+Interface eth0(): Bits sent         600 bps
+Interface eth1(): Bits received     56 bps
+Interface eth1(): Bits sent         0 bps
+ICMP response time                  0.0001 s
+
